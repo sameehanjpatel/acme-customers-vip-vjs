@@ -1,0 +1,84 @@
+<head>
+    <title>Acme Customers</title>
+    <style>
+        body{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        ul  > li{
+            display:flex;
+            justify-content: flex-start;
+            
+           list-style-type: none; 
+           border: solid 1px black;
+           padding:10px;
+           margin:5px;
+        }
+        #true{
+            background:lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Acme Customers<span id = "highlight">VIP</span></h1>
+    <div>
+   <h3>Customer Input Form</h3>
+    <form>
+    <p>Name</p><br>
+    <input type = "text"  name= "name"><br>
+    <p>Email</p><br>
+    <input type = "text" name = "email"><br>
+    IsVIP <input type="checkbox" name="isVIP"><br>
+    <button>Create</button>
+    </form>
+    </div>
+    <div class ="totalVIPs">
+    </div>
+    <ul class = "list">
+    </ul>
+<script>
+    let customers = [
+        { id: 1, name: 'moe', email: 'moe@gmail.com', isVIP: true },
+        { id: 2, name: 'larry', isVIP: true, email: 'larry@gmail.com' },
+        { id: 4, name: 'shep', email: 'shep@gmail.com' },
+    ];
+    let list = document.querySelector(".list")
+    
+    
+    const render = () =>{
+    let html = "";
+    customers.forEach(item =>{
+        html+=`<li id=${item.isVIP}>${item.name} (${item.email}) <button class = "destroy" id=${item.id}>Destroy</button></li>`
+    });
+    console.log(html);
+    list.innerHTML = html;
+    }
+    render();
+
+    let destroyButtons = document.querySelectorAll(".destroy")
+    destroyButtons.forEach(destroyButton => {
+        destroyButton.addEventListener("click", (ev) => {
+            console.log(ev.target);
+            let targetId = ev.target.id;
+            customers.filter(currentElement => {
+                parseInt(targetId) !== currentElement["id"]
+            })
+
+            // for (let i = 0; i < customers.length; i++) {
+            //     console.log(customers);
+            //     if(parseInt(targetId) === customers[i]["id"]){
+            //         customers.splice(i,1);
+            //         console.log(customers);
+                   
+            //     }
+            // }
+    
+          render();
+        })
+      
+    });
+ 
+    
+
+
+</script>
+</body>
